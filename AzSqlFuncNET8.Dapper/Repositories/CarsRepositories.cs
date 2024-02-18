@@ -90,7 +90,29 @@ public class CarsRepositories(DapperContext context, ILoggerFactory loggerFactor
 
     public async Task<Car> UpdateAsync(Car car, CancellationToken token)
     {
-        throw new NotImplementedException();
+        var updateQuery = "UPDATE [dbo].[Cars] SET Name = @Name Where Id = @id";
+
+        try
+        {
+            using var connection = _context.CreateConnection();
+
+            if (connection.State != ConnectionState.Open)
+            {
+                connection.Open();
+            }
+            var result = await connection.ExecuteAsync(new CommandDefinition(updateQuery, new { car.Id, car.Name }, cancellationToken: token));
+
+            // Todo: 
+            // In actual case, we should return the updated object from the database as a new udpated resource.
+            // 
+            return car;
+
+        }
+        catch (Exception ex)
+        {
+            _logger.LogError(ex, "Error while updating a row in the database");
+            throw;
+        }
     }
 
     public async Task<bool> DeleteAsync(int id, CancellationToken token)
