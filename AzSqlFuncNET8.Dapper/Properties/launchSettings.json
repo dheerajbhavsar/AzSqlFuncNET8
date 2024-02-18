@@ -1,0 +1,9 @@
+{
+  "profiles": {
+    "AzSqlFuncNET8.Dapper": {
+      "commandName": "Project",
+      "commandLineArgs": "--port 7236",
+      "launchBrowser": false
+    }
+  }
+}
