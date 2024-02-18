@@ -11,7 +11,7 @@ var host = new HostBuilder()
         services.AddApplicationInsightsTelemetryWorkerService();
         services.ConfigureFunctionsApplicationInsights();
         services.AddSingleton<DapperContext>();
-        services.AddScoped<ICarsRepository, CarsRepositories>();
+        services.AddScoped<ICarsRepository, CarsRepository>();
     })
     .Build();
 

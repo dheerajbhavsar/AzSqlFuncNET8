@@ -6,12 +6,12 @@ using Microsoft.Extensions.Logging;
 
 namespace AzSqlFuncNET8.Dapper.Repositories;
 
-public class CarsRepositories(DapperContext context, ILoggerFactory loggerFactory) : ICarsRepository
+public class CarsRepository(DapperContext context, ILoggerFactory loggerFactory) : ICarsRepository
 {
     private readonly DapperContext _context = context ??
         throw new ArgumentNullException(nameof(context));
 
-    private readonly ILogger<CarsRepositories> _logger = loggerFactory.CreateLogger<CarsRepositories>() ??
+    private readonly ILogger<CarsRepository> _logger = loggerFactory.CreateLogger<CarsRepository>() ??
         throw new ArgumentNullException(nameof(loggerFactory));
 
     public async Task<Car> CreateAsync(Car car, CancellationToken token)
