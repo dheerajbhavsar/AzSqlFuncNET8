@@ -77,7 +77,7 @@ public class SQLFunction(ICarsRepository repository, ILoggerFactory loggerFactor
         }
         catch (Exception ex)
         {
-            _logger.LogError(ex, "Error executing GetCarById function");
+            _logger.LogError(ex, "Error executing DeleteCar function");
             throw;
         }
 
@@ -97,7 +97,7 @@ public class SQLFunction(ICarsRepository repository, ILoggerFactory loggerFactor
         }
         catch (Exception ex)
         {
-            _logger.LogError(ex, "Error executing GetCarById function");
+            _logger.LogError(ex, "Error executing CreateCar function");
             throw;
         }
 
@@ -115,7 +115,7 @@ public class SQLFunction(ICarsRepository repository, ILoggerFactory loggerFactor
         {
             if (car.Id != id)
             {
-                _logger.LogInformation("Query parameter {id} and car {carId} does not match. Can not update a resource.", id, car.Id);
+                _logger.LogInformation("Query parameters {id} and car {carId} do not match. Could not update a resource.", id, car.Id);
                 return new BadRequestResult();
             }
 
@@ -123,7 +123,7 @@ public class SQLFunction(ICarsRepository repository, ILoggerFactory loggerFactor
 
             if (carFromDb is null)
             {
-                _logger.LogInformation("Car {id} does not exist. Can not update a resource.", id);
+                _logger.LogInformation("Car {id} does not exist. Could not update a resource.", id);
                 return new NotFoundResult();
             }
 
@@ -134,7 +134,7 @@ public class SQLFunction(ICarsRepository repository, ILoggerFactory loggerFactor
         }
         catch (Exception ex)
         {
-            _logger.LogError(ex, "Error executing GetCarById function");
+            _logger.LogError(ex, "Error executing UpdateCar function");
             throw;
         }
 
