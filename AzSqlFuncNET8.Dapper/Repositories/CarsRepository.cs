@@ -49,9 +49,7 @@ public class CarsRepository(DapperContext context, ILoggerFactory loggerFactory)
             using var connection = _context.CreateConnection();
 
             if (connection.State != ConnectionState.Open)
-            {
                 connection.Open();
-            }
 
             var result = await connection.QueryAsync<Car>(new CommandDefinition(selectQuery, cancellationToken: token));
 
@@ -74,12 +72,11 @@ public class CarsRepository(DapperContext context, ILoggerFactory loggerFactory)
             using var connection = _context.CreateConnection();
 
             if (connection.State != ConnectionState.Open)
-            {
                 connection.Open();
-            }
-            var result = await connection.QueryFirstOrDefaultAsync<Car>(new CommandDefinition(selectQuery, new { Id = id }, cancellationToken: token));
-            return result;
 
+            var result = await connection.QueryFirstOrDefaultAsync<Car>(new CommandDefinition(selectQuery, new { Id = id }, cancellationToken: token));
+            
+            return result;
         }
         catch (Exception ex)
         {
@@ -97,16 +94,14 @@ public class CarsRepository(DapperContext context, ILoggerFactory loggerFactory)
             using var connection = _context.CreateConnection();
 
             if (connection.State != ConnectionState.Open)
-            {
                 connection.Open();
-            }
+
             var result = await connection.ExecuteAsync(new CommandDefinition(updateQuery, new { car.Id, car.Name }, cancellationToken: token));
 
             // Todo: 
             // In actual case, we should return the updated object from the database as a new udpated resource.
             // 
             return car;
-
         }
         catch (Exception ex)
         {
@@ -124,12 +119,11 @@ public class CarsRepository(DapperContext context, ILoggerFactory loggerFactory)
             using var connection = _context.CreateConnection();
 
             if (connection.State != ConnectionState.Open)
-            {
                 connection.Open();
-            }
-            var result = await connection.ExecuteAsync(new CommandDefinition(deleteQuery, new { Id = id }, cancellationToken: token));
-            return result > 0;
 
+            var result = await connection.ExecuteAsync(new CommandDefinition(deleteQuery, new { Id = id }, cancellationToken: token));
+            
+            return result > 0;
         }
         catch (Exception ex)
         {
@@ -137,4 +131,5 @@ public class CarsRepository(DapperContext context, ILoggerFactory loggerFactory)
             throw;
         }
     }
+    
 }
