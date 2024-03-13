@@ -18,7 +18,10 @@ public class SQLFunction(ICarsRepository repository, ILoggerFactory loggerFactor
         throw new ArgumentNullException(nameof(repository));
 
     [Function(nameof(GetAllCars))]
-    public async Task<IActionResult> GetAllCars([HttpTrigger(AuthorizationLevel.Function, "get", Route = "cars")] HttpRequestData req, CancellationToken token)
+    public async Task<IActionResult> GetAllCars(
+        [HttpTrigger(AuthorizationLevel.Function, "get", Route = "cars")] HttpRequestData req,
+        CancellationToken token
+    )
     {
         _logger.LogInformation("Executing GetAllCars function.");
 
@@ -36,7 +39,11 @@ public class SQLFunction(ICarsRepository repository, ILoggerFactory loggerFactor
     }
 
     [Function(nameof(GetCarById))]
-    public async Task<IActionResult> GetCarById([HttpTrigger(AuthorizationLevel.Function, "get", Route = "cars/{id:int}")] HttpRequestData req, int id, CancellationToken token)
+    public async Task<IActionResult> GetCarById(
+        [HttpTrigger(AuthorizationLevel.Function, "get", Route = "cars/{id:int}")] HttpRequestData req,
+        int id,
+        CancellationToken token
+    )
     {
         _logger.LogInformation("Executing GetCarById function with {id}.", id);
 
@@ -59,7 +66,11 @@ public class SQLFunction(ICarsRepository repository, ILoggerFactory loggerFactor
     }
 
     [Function(nameof(DeleteCar))]
-    public async Task<IActionResult> DeleteCar([HttpTrigger(AuthorizationLevel.Function, "delete", Route = "cars/{id:int}")] HttpRequestData req, int id, CancellationToken token)
+    public async Task<IActionResult> DeleteCar(
+        [HttpTrigger(AuthorizationLevel.Function, "delete", Route = "cars/{id:int}")] HttpRequestData req,
+        int id,
+        CancellationToken token
+    )
     {
         _logger.LogInformation("Executing DeleteCar function with {id}.", id);
 
@@ -84,9 +95,11 @@ public class SQLFunction(ICarsRepository repository, ILoggerFactory loggerFactor
     }
 
     [Function(nameof(CreateCar))]
-    public async Task<IActionResult> CreateCar([HttpTrigger(AuthorizationLevel.Function, "post", Route = "cars")] HttpRequestData req,
+    public async Task<IActionResult> CreateCar(
+        [HttpTrigger(AuthorizationLevel.Function, "post", Route = "cars")] HttpRequestData req,
         [FromBody] AddCarDto car,
-        CancellationToken token)
+        CancellationToken token
+    )
     {
         _logger.LogInformation("Executing CreateCar function.");
 
@@ -104,10 +117,12 @@ public class SQLFunction(ICarsRepository repository, ILoggerFactory loggerFactor
     }
 
     [Function(nameof(UpdateCar))]
-    public async Task<IActionResult> UpdateCar([HttpTrigger(AuthorizationLevel.Function, "PUT", Route = "cars/{id:int}")] HttpRequestData req,
-    int id,
-    [FromBody] UpdateCarDto car,
-    CancellationToken token)
+    public async Task<IActionResult> UpdateCar(
+        [HttpTrigger(AuthorizationLevel.Function, "PUT", Route = "cars/{id:int}")] HttpRequestData req,
+        int id,
+        [FromBody] UpdateCarDto car,
+        CancellationToken token
+    )
     {
         _logger.LogInformation("Executing UpdateCar function.");
 
@@ -137,6 +152,6 @@ public class SQLFunction(ICarsRepository repository, ILoggerFactory loggerFactor
             _logger.LogError(ex, "Error executing UpdateCar function");
             throw;
         }
-
     }
+    
 }
